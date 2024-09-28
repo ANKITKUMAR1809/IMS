@@ -1,0 +1,17 @@
+.sell{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+select{
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    background-color:transparent;
+    border: inset;
+}
+option{
+    background: #545454;
+}

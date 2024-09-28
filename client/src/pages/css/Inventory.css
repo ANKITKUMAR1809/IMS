@@ -1,0 +1,26 @@
+.inventory{
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.inventory> table{
+    /* background-color: var(--btn-color); */
+    overflow: auto;
+    padding: 1rem;
+    width: 80%;
+    text-align: center;
+}
+.inventory table td{
+    padding: 1rem;
+}
+.inventory table tr{
+    background-color: rgba(218, 214, 214, 0.203);
+    backdrop-filter: blur(15px);
+}
+.inventory table th{
+    padding: 1rem;
+}

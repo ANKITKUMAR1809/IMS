@@ -1,0 +1,46 @@
+.login{
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+.login-form, .login-form>div{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 1rem;
+    
+}
+.login-form{
+    width: 25%;
+}
+.login-form>div>label{
+    font-size: 1.3rem;
+}
+.login-form>div>input{
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    background-color: transparent;
+
+}
+.login-form>div>input::placeholder{
+    color: rgb(234, 234, 234);
+    padding:0 1.3rem;
+    text-transform: capitalize;
+}
+.login-btn{
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    background-color: var(--btn-color);
+}
+.login-btn:active{
+    box-shadow: inset 0px 0px 10px 0.5px black;
+}
+
+@media screen and (max-width:768px){
+    .login-form{
+        width: 90%;
+    }
+}

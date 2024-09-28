@@ -1,0 +1,25 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: white;
+}
+:root{
+    --btn-color:rgb(227 48 59);
+}
+body{
+    background: url('./assets/2148667047.jpg');
+    background-size: cover;
+}
+a{
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+.container{
+    max-width: 1268px;
+    margin: auto;
+}
+.width{
+    width: 100%;
+}
