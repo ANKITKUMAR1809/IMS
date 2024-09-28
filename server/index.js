@@ -23,7 +23,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/stock",stockRoute)
 app.use("/api/sell",sellRoute)
 
-const PORT =5000;
+const PORT =process.env.PORT||5000;
 // connectDb is promise then it will use .then 
 connectDb().then(() => {
     // on which port app will run 
