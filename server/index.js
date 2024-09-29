@@ -8,14 +8,18 @@ const sellRoute= require('./routers/sell-route')
 const connectDb = require("./utils/db")
 
 // cors for 
-const corsOptions = {
-    origin: "https://ims-sak.vercel.app/",
-    methods: "GET, POST, PUT, PATCH, DELETE,HEAD",
-    credentials: true,
-};
-
-
-app.use(cors(corsOptions))
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+    );
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200);
+    }
+    next();
+  });
 
 
 app.use(express.json());
