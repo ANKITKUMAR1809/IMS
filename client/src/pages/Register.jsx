@@ -23,7 +23,7 @@ const Register = () => {
         e.preventDefault();
         console.log(register)
         try {
-            const response =await fetch("/api/auth/register", {
+            const response =await fetch("https://ims-yxa0.onrender.com/api/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

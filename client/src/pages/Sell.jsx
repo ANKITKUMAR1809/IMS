@@ -76,7 +76,7 @@ const Sell = () => {
     }
 
     try {
-      const response = await fetch("/api/sell/add-sell", {
+      const response = await fetch("https://ims-yxa0.onrender.com/api/sell/add-sell", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

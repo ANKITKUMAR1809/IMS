@@ -6,6 +6,7 @@ export const AuthContext = createContext();
 // AuthProvider component to wrap the application
 export const AuthProvider = ({ children }) => {
   // State variables
+  const url="https://ims-yxa0.onrender.com";
   const [sellRecord, setSellRecord] = useState([]); // For sell records
   const [items, setItems] = useState(""); // For stock items
   const [token, setToken] = useState(localStorage.getItem("token")); // Get token from localStorage on page load
@@ -40,7 +41,7 @@ export const AuthProvider = ({ children }) => {
   // Function to fetch user data using the stored token
   const getUserData = async () => {
     try {
-      const response = await fetch("/api/auth/user", {
+      const response = await fetch(`${url}/api/auth/user`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`, // Use token in Authorization header
@@ -65,7 +66,7 @@ export const AuthProvider = ({ children }) => {
     if (!user || !user._id) return; // Ensure user data is present
     const userId = user._id;
     try {
-      const response = await fetch("/api/sell/display-sell", {
+      const response = await fetch(`${url}/api/sell/display-sell`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +90,7 @@ export const AuthProvider = ({ children }) => {
     if (!user || !user._id) return; // Ensure user data is present
     const userId = user._id;
     try {
-      const response = await fetch("/api/stock/display-stock", {
+      const response = await fetch(`${url}/api/stock/display-stock`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -123,6 +124,7 @@ export const AuthProvider = ({ children }) => {
         getStockData,
         sellRecord,
         getSellRecord,
+        url,
       }}
     >
       {children}

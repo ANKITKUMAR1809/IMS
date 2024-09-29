@@ -16,12 +16,12 @@ const Login = () => {
         })
     }
 
-    const { storeToken } = useAuth()
+    const { storeToken ,url} = useAuth()
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         console.log(login)
         try {
-            const response = await fetch('/api/auth/login', {
+            const response = await fetch(`${url}/api/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -26,7 +26,7 @@ const AddStock = () => {
     console.log(user._id)
     console.log(addStock)
     try {
-      const response = await fetch("/api/stock/add-stock",{
+      const response = await fetch("https://ims-yxa0.onrender.com/api/stock/add-stock",{
         method:"POST",
         headers:{
           "Content-Type":"application/json",
