@@ -9,7 +9,7 @@ const connectDb = require("./utils/db")
 
 // cors for 
 const corsOptions = {
-    origin: "http://localhost:5173/",
+    origin: "https://ims-sak.vercel.app/",
     methods: "GET, POST, PUT, PATCH, DELETE,HEAD",
     credentials: true,
 };
