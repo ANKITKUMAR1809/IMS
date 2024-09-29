@@ -5,11 +5,13 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
+    color: white;
 }
 select{
     font-size: 1.1rem;
     padding: 0.5rem 0;
     background-color:transparent;
+    color: white;
     border: inset;
 }
 option{

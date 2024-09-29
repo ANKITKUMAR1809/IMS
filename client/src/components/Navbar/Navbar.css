@@ -1,6 +1,7 @@
 .navbar{
     width: 100%;
     backdrop-filter: blur(12px);
+    color: white;
 }
 .navbar nav{
     max-width: 1268px;

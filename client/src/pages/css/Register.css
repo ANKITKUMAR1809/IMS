@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
+    color: white;
 }
 .register-form, .register-form>div{
     display: flex;
@@ -22,6 +23,7 @@
 .register-form>div>input{
     font-size: 1.1rem;
     padding: 0.5rem 0;
+    color: whitesmoke;
     background-color: transparent;
 
 }
@@ -34,6 +36,7 @@
     font-size: 1.1rem;
     padding: 0.5rem 0;
     background-color: var(--btn-color);
+    color: white;
 }
 .register-btn:active{
     box-shadow: inset 0px 0px 10px 0.5px black;

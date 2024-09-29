@@ -5,6 +5,7 @@
     align-items: center;
     justify-content: center;
     gap: 2rem;
+    color: white;
 }
 .login-form, .login-form>div{
     display: flex;
@@ -23,6 +24,7 @@
     font-size: 1.1rem;
     padding: 0.5rem 0;
     background-color: transparent;
+    color: whitesmoke;
 
 }
 .login-form>div>input::placeholder{
@@ -33,6 +35,7 @@
 .login-btn{
     font-size: 1.1rem;
     padding: 0.5rem 0;
+    color: white;
     background-color: var(--btn-color);
 }
 .login-btn:active{

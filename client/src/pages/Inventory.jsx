@@ -4,10 +4,16 @@ import { useAuth } from '../store/auth';
 
 const Inventory = () => {
   const { user, items, getStockData, getUserData } = useAuth();
-
+  
   // State to track loading status
   const [isLoading, setIsLoading] = useState(true);
-
+  
+  // State to handle search query
+  const [searchQuery, setSearchQuery] = useState("");
+  
+  // State for filtered items
+  const [filteredItems, setFilteredItems] = useState([]);
+  
   // Fetch user data on initial mount
   useEffect(() => {
     const fetchData = async () => {
@@ -15,7 +21,6 @@ const Inventory = () => {
       await getUserData(); // Fetch user data
       setIsLoading(false); // Stop loading after user data is fetched
     };
-
     fetchData();
   }, []);
 
@@ -25,6 +30,17 @@ const Inventory = () => {
       getStockData(); // Fetch stock data after user is available
     }
   }, [user]); // Dependency on user
+
+  // Update filtered items when the search query or items change
+  useEffect(() => {
+    if (items && items.length > 0) {
+      const filtered = items.filter(item =>
+        item.itemName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.itemCategory.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredItems(filtered);
+    }
+  }, [searchQuery, items]);
 
   // Display loading state
   if (isLoading) {
@@ -40,20 +56,33 @@ const Inventory = () => {
     <section>
       <div className='container inventory'>
         <h1>Stocks In Your Shop</h1>
+        
+        {/* Search Input Box */}
+        <div>
+          <input
+            type="text"
+            placeholder="Search by Item Name or Category"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="search-box"
+          />
+        </div>
+
         <table>
           <thead>
             <tr>
-              <th>Item Name</th>
               <th>Item Category</th>
+              <th>Item Name</th>
               <th>Quantity In</th>
               <th>Quantity</th>
             </tr>
           </thead>
           <tbody>
-            {items.map((item) => (
+            {/* Filtered and Highlighted Results */}
+            {filteredItems.map((item) => (
               <tr key={item._id}>
-                <td>{item.itemName}</td>
                 <td>{item.itemCategory}</td>
+                <td>{item.itemName}</td>
                 <td>{item.quantityIn}</td>
                 <td>{item.quantity}</td>
               </tr>

@@ -11,6 +11,7 @@
 .home{
     margin: 2rem 0;
     height: 100vh;
+    color: white;
 }
 .main-box{
     display: flex;
