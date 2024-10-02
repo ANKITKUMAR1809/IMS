@@ -18,10 +18,6 @@ const UpdateStock = () => {
     quantity: "",
     quantityIn: "",
   })
-  useEffect(() => {
-   
-  }, [reload])
-  
   // State to handle search query
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -43,7 +39,7 @@ const UpdateStock = () => {
     if (user && user._id) {
       getStockData(); // Fetch stock data after user is available
     }
-  }, [user]); // Dependency on user
+  }, [user,reload]); // Dependency on user
 
   // Update filtered items when the search query or items change
   useEffect(() => {
