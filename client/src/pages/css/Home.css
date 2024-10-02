@@ -10,7 +10,7 @@
 }
 .home{
     margin: 2rem 0;
-    height: 100vh;
+    min-height: 100vh;
     color: white;
 }
 .main-box{
@@ -20,4 +20,16 @@
     justify-content: center;
     margin: auto;
     /* align-items: center; */
+}
+@media screen and (max-width:500px) {
+    .btn{
+        font-size: 1rem;
+        background-color: rgb(227 48 59);
+        backdrop-filter: blur(12px);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        font-weight: 600 ;
+        margin: 1rem 0;
+    }
 }

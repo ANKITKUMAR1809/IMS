@@ -10,6 +10,7 @@ import AddStock from './pages/AddStock'
 import Inventory from './pages/Inventory'
 import Sell from './pages/Sell'
 import SellHistory from './pages/SellHistory'
+import UpdateStock from './pages/UpdateStock'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="dashboard/inventory" element={<Inventory/>} />
         <Route path="dashboard/sell" element={<Sell/>} />
         <Route path="dashboard/sell-history" element={<SellHistory/>} />
+        <Route path="dashboard/update-stock" element={<UpdateStock/>} />
         {/* <Route path="*" element={<NoPage />} /> */}
       </Route>
     </Routes>

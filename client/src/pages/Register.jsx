@@ -1,13 +1,18 @@
 import React, { useState } from 'react'
 import './css/Register.css'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Register = () => {
-    const navigate= useNavigate()
+    const navigate = useNavigate()
+
     const [register, setRegister] = useState({
         shopname: "",
         email: "",
         password: ""
     })
+
     const handleInput = (e) => {
         let name = e.target.name;
         let value = e.target.value;
@@ -17,13 +22,20 @@ const Register = () => {
                 ...register,
                 [name]: value,
             })
-            
+
     }
+    const notify = (msg, success) => {
+        if (success) {
+            toast.success(msg);
+        } else {
+            toast.error(msg);
+        }
+    };
     const onRegisterSubmit = async (e) => {
         e.preventDefault();
         console.log(register)
         try {
-            const response =await fetch("https://ims-yxa0.onrender.com/api/auth/register", {
+            const response = await fetch("https://ims-yxa0.onrender.com/api/auth/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -32,23 +44,27 @@ const Register = () => {
             })
             console.log(response)
             if (response.ok) {
-                alert("Registration Successfull")
+                notify("Registeration Successfull", true);
                 setRegister({
                     shopname: "",
                     email: "",
                     password: ""
                 })
-                navigate('/login');
+                setTimeout(() => {
+                    navigate('/login');
+                    
+                }, 1500);
             }
-            else{
-                alert("Invalid Input please registration again")
+            else {
+                notify("Invalid Input please registration again", false);
             }
         } catch (error) {
-                alert("Server Unreachable")
+            notify("Server Unreachable",false);
         }
     }
     return (
         <section className='register'>
+            <ToastContainer/>
             <div>
                 <h1>Register your Shop with IMS</h1>
             </div>

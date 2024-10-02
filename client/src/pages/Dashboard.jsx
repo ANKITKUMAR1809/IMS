@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './css/Dashboard.css';
 import { useAuth } from '../store/auth';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../components/Loading';
 
 const Dashboard = () => {
     const navigate = useNavigate();
@@ -22,12 +23,20 @@ const Dashboard = () => {
 
     // Check if data is still loading
     if (isLoading) {
-        return <p>Loading...</p>; // Show loading text or spinner
+        return <section className="dashboard-section">
+            <div className='container dashboard'>
+                <Loading />
+            </div>
+        </section>
     }
 
     // Check if user data is available
     if (!user) {
-        return <p>Data not available</p>; // Handle data not available case
+        return <section className="dashboard-section">
+            <div className='container dashboard'>
+                <p>Data Not Available, Something Went Wrong Please Login Again</p>
+            </div>
+        </section>; // Handle data not available case
     }
 
     return (
@@ -40,13 +49,14 @@ const Dashboard = () => {
                 <div className='dashboard-btn'>
                     <div className="btn" onClick={() => { navigate('addStock') }}>Add Stock</div>
                     <div className="btn" onClick={() => { navigate('inventory') }}>Inventory</div>
+                    <div className="btn" onClick={() => { navigate('update-stock') }}>Update in Stock</div>
                     <div className="btn" onClick={() => { navigate('sell') }}>Sell</div>
                     <div className="btn" onClick={() => { navigate('sell-history') }}>Previous Sells History</div>
                 </div>
 
                 <div className="dashboard-alert">
                     <h1>Notification</h1>
-                    <p>Items that are low in Stock</p>
+                    <h3>Items that are low in Stock</h3>
                     {items && items.map((item) => {
                         return item.quantity < 5 ? <p key={item.itemName}>{item.itemName}</p> : null;
                     })}

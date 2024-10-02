@@ -5,7 +5,7 @@ const add = async (req, res) => {
         console.log(req.body)
         const { userId, itemName, itemCategory, quantity, quantityIn } = req.body;
 
-        const itemExist = await Stock.findOne({ $and: [{ itemName }, {userId}] })
+        const itemExist = await Stock.findOne({ $and: [{ itemName }, { userId }] })
         if (itemExist) {
             return res.status(401).json({ msg: "Item already Exist, Edit quantity in update" })
         }
@@ -48,6 +48,38 @@ const display = async (req, res) => {
     }
 }
 
+const update = async (req, res) => {
+
+    try {
+        const { stockId, itemName, itemCategory, quantity, quantityIn } = req.body;
+
+        const updateResult = await Stock.updateOne({ _id: stockId },
+            {
+                $set: {
+                    itemName: itemName,
+                    itemCategory: itemCategory,
+                    quantity: quantity,
+                    quantityIn: quantityIn,
+                }
+            });
+        if (updateResult) {
+            res.status(200).json({
+                msg: "Update Successfull"
+            })
+        }
+
+        else {
+            res.status(401).json({
+                msg: "Can't update, Try again"
+            })
+        }
+
+    } catch (error) {
+        res.status(500).json({
+            msg:`Server Error in updateResult ${error}`
+        })
+    }
+}
 // const user = async (req, res) => {
 //     try {
 //         const userData = req.user;
@@ -57,4 +89,4 @@ const display = async (req, res) => {
 //         console.log("error from the user route", error);
 //     }
 // }
-module.exports = { add, display }
+module.exports = { add, display,update }

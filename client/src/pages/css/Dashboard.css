@@ -13,6 +13,9 @@
 .dashboard-btn{
     width: 50%;
 }
+.dashboard-btn .btn{
+    cursor: pointer;
+}
 .dashboard-alert{
     display: flex;
     width: 50%;
@@ -23,6 +26,12 @@
     background-color: rgba(255, 163, 178, 0.316);
     backdrop-filter: blur(15px);
 }
+.dashboard-alert h3{
+    font-size: 1rem;
+}
+.dashboard-alert p {
+    font-size: 1.5rem;
+}
 
 @media screen and (max-width:768px){
     .dashboard:first-child{
@@ -30,10 +39,13 @@
     }
     
     .dashboard-section  {
-        height: 70vh;
+        height: auto;
     }
 
     .dashboard-btn{
         width: 90%;
+    }
+    .dashboard-alert{
+        width: 80%;
     }
 }

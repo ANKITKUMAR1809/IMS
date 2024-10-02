@@ -1,0 +1,36 @@
+.update-stock{
+    width: auto;
+    height: auto;
+}
+.update-stock >form{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.update-stock >form >div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.update-stock >form >div >input{
+    background-color: transparent;
+    color: white;
+    padding: 0.3rem 0.5rem;
+}
+
+.update-stock>form  button {
+    background-color: var(--btn-color);
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width:768px) {
+    .update-stock >form{
+        flex-direction:column;
+    }
+}

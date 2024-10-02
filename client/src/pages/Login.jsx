@@ -4,11 +4,12 @@ import { useAuth } from '../store/auth';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Progress from '../components/Progress';
 
 const Login = () => {
   const [login, setLogin] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-
+  const [load,setLoad]=useState(false)
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -31,6 +32,7 @@ const Login = () => {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setLoad(true)
     try {
       const response = await fetch(`${url}/api/auth/login`, {
         method: "POST",
@@ -44,7 +46,7 @@ const Login = () => {
         const res_data = await response.json();
         storeToken(res_data.token);
         setLogin({ email: "", password: "" });
-
+        setLoad(false)
         notify("Login Successful", true); // Show success notification
 
         // Delay the navigation to give the toast time to show
@@ -61,7 +63,7 @@ const Login = () => {
 
   return (
     <section className='login container'>
-      <ToastContainer className='toast'/> {/* Toast container to display notifications */}
+      <ToastContainer /> {/* Toast container to display notifications */}
       <div>
         <h1>Login to Your Shop Account</h1>
       </div>
@@ -92,7 +94,7 @@ const Login = () => {
           />
         </div>
         <div>
-          <button type="submit" className='login-btn'>Login</button>
+          <button type="submit" className='login-btn'>{load?<Progress/>:"Login"}</button>
         </div>
       </form>
     </section>

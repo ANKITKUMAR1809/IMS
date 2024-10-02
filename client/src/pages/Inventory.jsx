@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './css/Inventory.css';
+import Loading from '../components/Loading'
 import { useAuth } from '../store/auth';
 
 const Inventory = () => {
@@ -44,12 +45,20 @@ const Inventory = () => {
 
   // Display loading state
   if (isLoading) {
-    return <p>Loading user data...</p>;
+    return <section>
+      <div className='container inventory'>
+        <Loading/>
+      </div>
+      </section>
   }
 
   // Handle case when no items are available
   if (!items || items.length === 0) {
-    return <p>No stock items available.</p>;
+    return <section>
+    <div className='container inventory'>
+      <p> No Stocks Available in your Inventory.</p>
+    </div>
+    </section>
   }
 
   return (

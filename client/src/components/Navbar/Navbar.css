@@ -23,6 +23,11 @@ nav div{
 }
 nav div> h1{
     font-size: 2.4rem;
+    cursor: pointer;
+}
+nav div> h3{
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 nav div> a{
     font-size: 1.3rem;
@@ -34,4 +39,15 @@ nav div> a{
 }
 nav .nav-menu{
     display: inline;
+    text-align: center;
+}
+
+@media screen and (max-width:768px) {
+    nav div> h1{
+        font-size: 1.7rem;
+        
+    }
+    nav div> h3{
+        font-size: 0.4rem;
+    }
 }

@@ -1,6 +1,9 @@
 .footer{
     width: 100%;
     color: white;
+    height: auto;
+    margin: 2rem 0;
+    backdrop-filter: blur(2px);
 }
 footer{
     max-width: 1268px;
