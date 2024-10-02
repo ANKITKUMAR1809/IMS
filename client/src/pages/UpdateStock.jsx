@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const UpdateStock = () => {
   const { user, items, getStockData, getUserData } = useAuth();
-
+  const {reload,setReload}=useState(false)
   // State to track loading status
   const [isLoading, setIsLoading] = useState(true);
 
@@ -18,6 +18,10 @@ const UpdateStock = () => {
     quantity: "",
     quantityIn: "",
   })
+  useEffect(() => {
+   
+  }, [reload])
+  
   // State to handle search query
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -89,6 +93,7 @@ const UpdateStock = () => {
           quantity: "",
           quantityIn: "",
         })
+        setReload(true)
       }
       else {
         alert("Try Again ,something went wrong")
@@ -109,6 +114,7 @@ const UpdateStock = () => {
       console.log(response)
       if (response.ok) {
         alert("Item Deleted, refreshpage")
+        setReload(true)
       }
       else {
         alert("Try Again ,something went wrong")
