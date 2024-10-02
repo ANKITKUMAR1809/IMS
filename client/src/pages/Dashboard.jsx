@@ -49,7 +49,7 @@ const Dashboard = () => {
                 <div className='dashboard-btn'>
                     <div className="btn" onClick={() => { navigate('addStock') }}>Add Stock</div>
                     <div className="btn" onClick={() => { navigate('inventory') }}>Inventory</div>
-                    <div className="btn" onClick={() => { navigate('update-stock') }}>Update in Stock</div>
+                    <div className="btn" onClick={() => { navigate('update-stock') }}>Update & Delete</div>
                     <div className="btn" onClick={() => { navigate('sell') }}>Sell</div>
                     <div className="btn" onClick={() => { navigate('sell-history') }}>Previous Sells History</div>
                 </div>

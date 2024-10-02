@@ -76,7 +76,28 @@ const update = async (req, res) => {
 
     } catch (error) {
         res.status(500).json({
-            msg:`Server Error in updateResult ${error}`
+            msg: `Server Error in updateResult ${error}`
+        })
+    }
+}
+
+const deleteStock =async (req, res) => {
+    try {
+        const{userId}= req.body;
+        const result = await Stock.findByIdAndDelete(userId);
+        if(result){
+            res.status(200).json({
+                msg:"Item Deleted"
+            })
+        }
+        else{
+            res.status(401).json({
+                msg:"Item not found"
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            msg:`Error in Delete Stock: ${error}`
         })
     }
 }
@@ -89,4 +110,4 @@ const update = async (req, res) => {
 //         console.log("error from the user route", error);
 //     }
 // }
-module.exports = { add, display,update }
+module.exports = { add, display, update, deleteStock }

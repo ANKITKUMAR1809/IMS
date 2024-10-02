@@ -28,7 +28,9 @@
     color: white;
     padding: 0.5rem 1rem;
 }
-
+.delete-icon{
+    cursor: pointer;
+}
 @media screen and (max-width:768px) {
     .update-stock >form{
         flex-direction:column;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './css/UpdateStock.css'
 import { useAuth } from '../store/auth';
 import Loading from '../components/Loading'
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 const UpdateStock = () => {
   const { user, items, getStockData, getUserData } = useAuth();
@@ -95,6 +97,26 @@ const UpdateStock = () => {
       alert("Server Unreachable")
     }
   }
+  const handleDelete=async(userId)=>{
+    try {
+      const response = await fetch("https://ims-yxa0.onrender.com/api/stock/delete-stock", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({userId})
+      })
+      console.log(response)
+      if (response.ok) {
+        alert("Item Deleted, refreshpage")
+      }
+      else {
+        alert("Try Again ,something went wrong")
+      }
+    } catch (error) {
+      alert("Server Error")
+    }
+  }
   // Display loading state
   if (isLoading) {
     return <section>
@@ -117,7 +139,7 @@ const UpdateStock = () => {
   return (
     <section>
       <div className='container inventory'>
-        <h1>Stocks In Your Shop</h1>
+        <h1>Update & Delete your items in one click</h1>
 
         {/* Search Input Box */}
         <div>
@@ -174,6 +196,7 @@ const UpdateStock = () => {
                 <td>{item.itemName}</td>
                 <td>{item.quantityIn}</td>
                 <td>{item.quantity}</td>
+                <td className='delete-icon' onClick={()=>handleDelete(item._id)}><DeleteIcon/></td>
               </tr>
             ))}
           </tbody>
