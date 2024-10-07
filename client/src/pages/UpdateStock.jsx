@@ -7,8 +7,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 const UpdateStock = () => {
   const { user, items, getStockData, getUserData } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
   // State to track loading status
-
+  
   const [updateData, setUpdateData] = useState({
     stockId: "",
     itemName: "",
