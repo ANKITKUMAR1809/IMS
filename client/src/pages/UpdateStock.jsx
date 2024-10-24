@@ -9,13 +9,14 @@ const UpdateStock = () => {
   const { user, items, getStockData, getUserData } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   // State to track loading status
-  
+
   const [updateData, setUpdateData] = useState({
     stockId: "",
     itemName: "",
     itemCategory: "",
     quantity: "",
     quantityIn: "",
+    price:""
   })
   // State to handle search query
   const [searchQuery, setSearchQuery] = useState("");
@@ -50,13 +51,14 @@ const UpdateStock = () => {
       setFilteredItems(filtered);
     }
   }, [searchQuery, items]);
-  const onClickTr = (id, ic, inm, qi, q) => {
+  const onClickTr = (id, ic, inm, qi, q, p) => {
     setUpdateData({
       stockId: id,
       itemName: inm,
       itemCategory: ic,
       quantity: q,
       quantityIn: qi,
+      price:p
     })
   }
   const handleOnChange = (e) => {
@@ -87,6 +89,7 @@ const UpdateStock = () => {
           itemCategory: "",
           quantity: "",
           quantityIn: "",
+          price: 0,
         })
       }
       else {
@@ -96,14 +99,14 @@ const UpdateStock = () => {
       alert("Server Unreachable")
     }
   }
-  const handleDelete=async(userId)=>{
+  const handleDelete = async (userId) => {
     try {
       const response = await fetch("https://ims-yxa0.onrender.com/api/stock/delete-stock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({userId})
+        body: JSON.stringify({ userId })
       })
       console.log(response)
       if (response.ok) {
@@ -172,6 +175,10 @@ const UpdateStock = () => {
               <input type="text" value={updateData.quantityIn} name='quantityIn' onChange={handleOnChange} />
             </div>
             <div>
+              <label htmlFor="price">Price</label>
+              <input type="number" value={updateData.price} name='price' onChange={handleOnChange} />
+            </div>
+            <div>
               <button type="submit" className='register-btn'>Update</button>
 
             </div>
@@ -195,7 +202,7 @@ const UpdateStock = () => {
                 <td>{item.itemName}</td>
                 <td>{item.quantityIn}</td>
                 <td>{item.quantity}</td>
-                <td className='delete-icon' onClick={()=>handleDelete(item._id)}><DeleteIcon/></td>
+                <td className='delete-icon' onClick={() => handleDelete(item._id)}><DeleteIcon /></td>
               </tr>
             ))}
           </tbody>

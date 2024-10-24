@@ -3,16 +3,17 @@ const Stock = require("../models/stock-model.js")
 const add = async (req, res) => {
     try {
         console.log(req.body)
-        const { userId, itemName, itemCategory, quantity, quantityIn } = req.body;
+        const { userId, itemName, itemCategory, quantity, quantityIn, price } = req.body;
 
         const itemExist = await Stock.findOne({ $and: [{ itemName }, { userId }] })
+        const itemPrice = price || 0;
         if (itemExist) {
             return res.status(401).json({ msg: "Item already Exist, Edit quantity in update" })
         }
         else {
             const itemCreated = await Stock.create(
                 {
-                    userId, itemName, itemCategory, quantity, quantityIn
+                    userId, itemName, itemCategory, quantity, quantityIn, price: itemPrice
                 });
             res.status(201).json(
                 {
@@ -51,7 +52,7 @@ const display = async (req, res) => {
 const update = async (req, res) => {
 
     try {
-        const { stockId, itemName, itemCategory, quantity, quantityIn } = req.body;
+        const { stockId, itemName, itemCategory, quantity, quantityIn, price } = req.body;
 
         const updateResult = await Stock.updateOne({ _id: stockId },
             {
@@ -60,6 +61,7 @@ const update = async (req, res) => {
                     itemCategory: itemCategory,
                     quantity: quantity,
                     quantityIn: quantityIn,
+                    price: price
                 }
             });
         if (updateResult) {
@@ -81,23 +83,23 @@ const update = async (req, res) => {
     }
 }
 
-const deleteStock =async (req, res) => {
+const deleteStock = async (req, res) => {
     try {
-        const{userId}= req.body;
+        const { userId } = req.body;
         const result = await Stock.findByIdAndDelete(userId);
-        if(result){
+        if (result) {
             res.status(200).json({
-                msg:"Item Deleted"
+                msg: "Item Deleted"
             })
         }
-        else{
+        else {
             res.status(401).json({
-                msg:"Item not found"
+                msg: "Item not found"
             })
         }
     } catch (error) {
         res.status(500).json({
-            msg:`Error in Delete Stock: ${error}`
+            msg: `Error in Delete Stock: ${error}`
         })
     }
 }

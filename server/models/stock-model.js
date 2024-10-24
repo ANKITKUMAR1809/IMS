@@ -19,7 +19,12 @@ const stockSchema = mongoose.Schema({
     quantityIn: {
         type: String,
         require: true
+    },
+    price:{
+        type:Number,
+        require:true
     }
+
 });
 const Stock = new mongoose.model("Stock", stockSchema);
 

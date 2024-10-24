@@ -9,7 +9,8 @@ const AddStock = () => {
     itemName: "",
     itemCategory: "",
     quantity: 1,
-    quantityIn: ""
+    quantityIn: "",
+    price:0,
   })
   const [load, setLoad] = useState(false)
   useEffect(() => {
@@ -118,6 +119,17 @@ const AddStock = () => {
               value={addStock.quantityIn}
               onChange={handleInput}
               placeholder='Pieces'
+            />
+          </div>
+          <div>
+            <label htmlFor="price">Price</label>
+            <input type="number"
+              name='price'
+              id='price'
+              required
+              value={addStock.price}
+              onChange={handleInput}
+              placeholder='100'
             />
           </div>
           <div>

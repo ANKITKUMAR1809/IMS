@@ -84,6 +84,7 @@ const Inventory = () => {
               <th>Item Name</th>
               <th>Quantity In</th>
               <th>Quantity</th>
+              <th>Price</th>
             </tr>
           </thead>
           <tbody>
@@ -94,6 +95,7 @@ const Inventory = () => {
                 <td>{item.itemName}</td>
                 <td>{item.quantityIn}</td>
                 <td>{item.quantity}</td>
+                <td>{item.price}</td>
               </tr>
             ))}
           </tbody>
