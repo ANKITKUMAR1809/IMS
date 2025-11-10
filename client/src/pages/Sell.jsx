@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../store/auth';
-import './css/Sell.css';
 
 const Sell = () => {
   const { user, getUserData, getStockData, items } = useAuth();

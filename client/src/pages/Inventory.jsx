@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './css/Inventory.css';
 import Loading from '../components/Loading'
 import { useAuth } from '../store/auth';
 

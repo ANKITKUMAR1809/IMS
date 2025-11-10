@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './css/Dashboard.css';
 import { useAuth } from '../store/auth';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../components/Loading';

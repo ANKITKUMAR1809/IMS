@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import './css/UpdateStock.css'
 import { useAuth } from '../store/auth';
 import Loading from '../components/Loading'
 import DeleteIcon from '@mui/icons-material/Delete';

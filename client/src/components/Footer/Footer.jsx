@@ -1,18 +1,9 @@
 import React from 'react'
-import './Footer.css'
 const Footer = () => {
   return (
-    <section className="footer">
-        <footer>
-            <div>
-                <p>Inventory Management System</p>
-                <p>The site where you can Manage your Inventory/Stocks easily.</p>
-            </div>
-            <div>
-                <p>Designed By SAK</p>
-            </div>
-        </footer>
-    </section>
+    <footer className='bg-gray-800 text-white text-center p-4'>
+      <p>&copy; {new Date().getFullYear()} Inventory Management System. All rights reserved.</p>
+    </footer>
   )
 }
 

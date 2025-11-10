@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import './css/Register.css'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -63,7 +62,7 @@ const Register = () => {
         }
     }
     return (
-        <section className='register'>
+        <section className='h-screen flex flex-col justify-center items-center bg-zinc-50'>
             <ToastContainer/>
             <div>
                 <h1>Register your Shop with IMS</h1>
@@ -99,7 +98,7 @@ const Register = () => {
                     />
                 </div>
                 <div>
-                    <button type="submit" className='register-btn'>Sign Up</button>
+                    <button type="submit" className=''>Sign Up</button>
                 </div>
             </form>
         </section>
