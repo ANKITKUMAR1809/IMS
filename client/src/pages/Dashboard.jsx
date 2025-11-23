@@ -2,107 +2,100 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
-import { Bell } from 'lucide-react';
+import { Bell } from "lucide-react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const { user, isLogIn, getUserData, items } = useAuth();
+  const { user, getUserData, items } = useAuth();
 
-  // Loading states
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true); // Start loading
-      await getUserData(); // Fetch user data
-      setIsLoading(false); // Stop loading when done
+    const loadData = async () => {
+      setIsLoading(true);
+      await getUserData();
+      setIsLoading(false);
     };
-
-    fetchData(); // Call the async function
+    loadData();
   }, []);
 
-  // Check if data is still loading
+  // Loading UI
   if (isLoading) {
     return (
-      <section className="dashboard-section">
-        <div className="container dashboard">
-          <Loading />
-        </div>
+      <section className="min-h-screen flex justify-center items-center">
+        <Loading />
       </section>
     );
   }
 
-  // Check if user data is available
   if (!user) {
     return (
-      <section className="dashboard-section">
-        <div className="container dashboard">
-          <p>Data Not Available, Something Went Wrong Please Login Again</p>
-        </div>
+      <section className="min-h-screen flex justify-center items-center text-xl">
+        <p className="text-red-600 font-semibold">
+          Something went wrong. Please login again.
+        </p>
       </section>
-    ); // Handle data not available case
+    );
   }
 
   return (
-    <section className="min-h-screen">
-      <div className="w-full bg-white drop-shadow-xl py-4 flex justify-around items-center">
-        <h1 className="text-xl font-semibold text-blue-950">{user.shopname}</h1>{" "}
-        {/* Render shopname */}
+    <section className="min-h-screen bg-gray-100">
+      {/* Top Header */}
+      <div className="w-full bg-white shadow-md py-4 px-5">
+        <h1 className="text-2xl font-bold text-blue-900 text-center">
+          {user.shopname}
+        </h1>
       </div>
-      <div className="flex flex-row justify-around ">
-        <div className="flex flex-col gap-4 mt-10">
-          <div
-            className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            onClick={() => {
-              navigate("addStock");
-            }}
-          >
-            Add Stock
-          </div>
-          <div
-            className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            onClick={() => {
-              navigate("inventory");
-            }}
-          >
-            Inventory
-          </div>
-          <div
-            className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            onClick={() => {
-              navigate("update-stock");
-            }}
-          >
-            Update & Delete
-          </div>
-          <div
-            className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            onClick={() => {
-              navigate("sell");
-            }}
-          >
-            Sell
-          </div>
-          <div
-            className="text-white bg-linear-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-linear-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
-            onClick={() => {
-              navigate("sell-history");
-            }}
-          >
-            Previous Sells History
-          </div>
+
+      <div className="flex flex-wrap justify-center lg:justify-around gap-10 p-6">
+
+        {/* LEFT Buttons Section */}
+        <div className="flex flex-col gap-4 mt-6 w-full max-w-xs">
+
+          {[
+            { label: "Add Stock", link: "addStock" },
+            { label: "Inventory", link: "inventory" },
+            { label: "Update & Delete", link: "update-stock" },
+            { label: "Sell Items", link: "sell" },
+            { label: "Previous Sell History", link: "sell-history" },
+          ].map((btn, i) => (
+            <button
+              key={i}
+              onClick={() => navigate(btn.link)}
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg py-3 w-full shadow-md transition-all hover:scale-[1.02]"
+            >
+              {btn.label}
+            </button>
+          ))}
+
         </div>
 
-        <div className="mt-10 w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col items-center  p-4">
-          <h1 className="text-center py-4 flex justify-center items-center "><Bell className="text-blue-600 "size={26}/></h1>
-          <h3 className="text-2xl font-semibold border-b-2 border-black">Low in Stock</h3>
-          {items &&
-            items.map((item) => {
-              return item.quantity < 5 ? (
-                <li key={item.itemName} className="text-lg mt-2 ">{item.itemName}</li>
-              ) : null;
-            })}
+        {/* RIGHT - Low Stock Card */}
+        <div className="mt-6 w-full max-w-sm bg-white border border-gray-200 rounded-xl shadow-md p-6">
+          <div className="flex justify-center items-center">
+            <Bell size={30} className="text-blue-600" />
+          </div>
+
+          <h3 className="text-2xl font-bold text-center mt-3 pb-2 border-b-2 border-gray-300">
+            Low in Stock
+          </h3>
+
+          <ul className="mt-4 space-y-2 text-lg text-gray-700 font-medium">
+            {items &&
+              items.filter((it) => it.quantity < 5).length > 0 ? (
+              items
+                .filter((it) => it.quantity < 5)
+                .map((item) => (
+                  <li key={item._id} className="bg-red-50 border border-red-200 rounded-md p-2 text-center text-red-700">
+                    {item.itemName} — <span className="font-bold">{item.quantity}</span>
+                  </li>
+                ))
+            ) : (
+              <p className="text-center text-gray-500">No low-stock items 🎉</p>
+            )}
+          </ul>
         </div>
+
       </div>
     </section>
   );

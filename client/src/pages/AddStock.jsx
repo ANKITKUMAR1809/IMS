@@ -71,17 +71,18 @@ const AddStock = () => {
   }
   
   return (
-    <section>
-      <div className='container register'>
+    <section className='min-h-screen  bg-zinc-100 drop-shadow-xl flex flex-col justify-center items-center gap-4'>
+      <div className='flex flex-col justify-center items-center bg-white shadow-2xl rounded-md p-6 md:w-1/2 w-full  m-4 md:my-20 py-12'>
         <ToastContainer/>
-        <div>
+        <div className='text-2xl font-semibold text-blue-950 text-shadow-2xl text-shadow-red-500'>
           <h1>Add Stocks in Inventory</h1>
         </div>
 
-        <form onSubmit={onAddStock} className='register-form'>
-          <div>
+        <form onSubmit={onAddStock} className='flex flex-col gap-4 mt-6 w-full space-y-4'>
+          <div className=' '>
             <label htmlFor="itemName">Item Name</label>
             <input type="text"
+            className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
               required
               name="itemName"
               id='itemName'
@@ -93,6 +94,7 @@ const AddStock = () => {
           <div>
             <label htmlFor="itemCategory">Item Category</label>
             <input type="text" name="itemCategory" id="itemCategory"
+            className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
               placeholder='Google Phone'
               required
               value={addStock.itemCategory}
@@ -103,6 +105,7 @@ const AddStock = () => {
             <label htmlFor="quantity">Quantity</label>
             <input type="number"
               name='quantity'
+              className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
               id='quantity'
               required
               value={addStock.quantity}
@@ -113,6 +116,7 @@ const AddStock = () => {
           <div>
             <label htmlFor="quantityIn">Quantity In</label>
             <input type="text"
+            className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
               name='quantityIn'
               id='quantityIn'
               required
@@ -125,6 +129,7 @@ const AddStock = () => {
             <label htmlFor="price">Price</label>
             <input type="number"
               name='price'
+              className='bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5'
               id='price'
               required
               value={addStock.price}
@@ -132,8 +137,8 @@ const AddStock = () => {
               placeholder='100'
             />
           </div>
-          <div>
-            <button type="submit" className='register-btn'>{load ? <Progress /> : "Add in Stock"}</button>
+          <div className='flex justify-center items-center mt-4'>
+            <button type="submit" className='bg-blue-500 w-full py-4 rounded-lg text-white text-xl font-semibold'>{load ? <Progress /> : "Add in Stock"}</button>
           </div>
         </form>
       </div>

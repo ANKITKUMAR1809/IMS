@@ -1,44 +1,54 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../store/auth";
-import { useState, useEffect } from "react";
+
 const Navbar = () => {
   const navigate = useNavigate();
-
-  const { isLogIn, Logout } = useAuth(); // Destructuring isLogIn from useAuth hook
-  const [isLoggedIn, setIsLoggedIn] = useState(isLogIn); // Local state to manage login status
+  const { isLogIn, Logout } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(isLogIn);
 
   useEffect(() => {
-    setIsLoggedIn(isLogIn); // Update local state when isLogIn changes
+    setIsLoggedIn(isLogIn);
   }, [isLogIn]);
+
   return (
-    <section className="bg-black/90 shadow-md">
-      <nav className="flex justify-around items-center h-20 ">
+    <header className="bg-black/85 backdrop-blur-md shadow-lg sticky top-0 z-50">
+      <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        
+        {/* Logo */}
         <div
           onClick={() => (isLogIn ? navigate("/dashboard") : navigate("/"))}
-          className="flex flex-col justify-center items-center cursor-pointer"
+          className="cursor-pointer group"
         >
-          <h1 className="text-2xl font-semibold text-zinc-50">IMS</h1>
-          <h3 className="text-sm font-semibold text-gray-500">
+          <h1 className="text-3xl font-bold text-white tracking-wide group-hover:text-gray-300 transition">
+            IMS
+          </h1>
+          <p className="text-xs text-gray-400 group-hover:text-gray-300 transition">
             Inventory Management System
-          </h3>
+          </p>
         </div>
 
-        <div>
-          <NavLink to="/contact" className="text-xl font-semibold">
-            <p className="text-zinc-50">Contact</p>
+        {/* Links */}
+        <div className="flex items-center gap-8">
+          <NavLink
+            to="/contact"
+            className="text-lg font-medium text-white hover:text-gray-300 transition"
+          >
+            Contact
           </NavLink>
-          {isLoggedIn ? (
-            <NavLink to="/" onClick={Logout}>
-              <p className="text-zinc-50">Logout</p>
+
+          {isLoggedIn && (
+            <NavLink
+              to="/"
+              onClick={Logout}
+              className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white font-semibold transition shadow-md"
+            >
+              Logout
             </NavLink>
-          ) : (
-            ""
           )}
         </div>
       </nav>
-    </section>
+    </header>
   );
 };
 

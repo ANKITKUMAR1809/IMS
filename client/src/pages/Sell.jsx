@@ -1,60 +1,60 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../store/auth';
 
 const Sell = () => {
   const { user, getUserData, getStockData, items } = useAuth();
+
   const [sell, setSell] = useState({
-    itemName: "", itemCategory: "", quantity: 1, quantityIn: "", date: ""
+    itemName: "",
+    itemCategory: "",
+    quantity: 1,
+    quantityIn: "",
+    date: ""
   });
-  const [availableStock, setAvailableStock] = useState(0); // Store available quantity of selected item
-  const [isQuantityValid, setIsQuantityValid] = useState(true); // Track if entered quantity is valid
-  const [categories, setCategories] = useState([]); // Store all unique categories
-  const [filteredItems, setFilteredItems] = useState([]); // Store filtered items based on category
+
+  const [availableStock, setAvailableStock] = useState(0);
+  const [isQuantityValid, setIsQuantityValid] = useState(true);
+  const [categories, setCategories] = useState([]);
+  const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
     getUserData();
     getStockData();
   }, []);
 
-  // Set unique categories from items
+  // Extract unique categories
   useEffect(() => {
     if (items.length > 0) {
-      const uniqueCategories = [...new Set(items.map(item => item.itemCategory))];
-      setCategories(uniqueCategories);
+      setCategories([...new Set(items.map((i) => i.itemCategory))]);
     }
   }, [items]);
 
-  // Handle category selection and filter items by the selected category
-  const handleCategorySelect = (selectedCategory) => {
-    setSell({ ...sell, itemCategory: selectedCategory, itemName: "", quantityIn: "" });
-    const filtered = items.filter(item => item.itemCategory === selectedCategory);
-    setFilteredItems(filtered);
+  // Select Category
+  const handleCategorySelect = (cat) => {
+    setSell({ ...sell, itemCategory: cat, itemName: "", quantityIn: "" });
+    setFilteredItems(items.filter((i) => i.itemCategory === cat));
   };
 
-  // Handle item selection from the filtered items
-  const handleItemSelect = (selectedItemName) => {
-    const selectedItem = filteredItems.find(item => item.itemName === selectedItemName);
+  // Select Item
+  const handleItemSelect = (itemName) => {
+    const selected = filteredItems.find((i) => i.itemName === itemName);
 
-    if (selectedItem) {
+    if (selected) {
       setSell({
         ...sell,
-        itemName: selectedItem.itemName,
-        itemCategory: selectedItem.itemCategory,
-        quantityIn: selectedItem.quantityIn,
+        itemName: selected.itemName,
+        itemCategory: selected.itemCategory,
+        quantityIn: selected.quantityIn,
       });
-      setAvailableStock(selectedItem.quantity); // Set available stock for validation
+
+      setAvailableStock(selected.quantity);
     }
   };
 
-  // Handle input changes
   const handleInput = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
+    const { name, value } = e.target;
 
-    // If quantity is being updated, check if it's valid
-    if (name === 'quantity') {
+    if (name === "quantity") {
       setIsQuantityValid(value <= availableStock);
     }
 
@@ -64,35 +64,32 @@ const Sell = () => {
     });
   };
 
-  // Handle form submission
   const onAddSell = async (e) => {
     e.preventDefault();
 
-    // Prevent form submission if quantity is invalid
     if (!isQuantityValid) {
-      alert("Quantity exceeds available stock.");
+      alert("Quantity exceeds available stock");
       return;
     }
 
     try {
       const response = await fetch("https://ims-yxa0.onrender.com/api/sell/add-sell", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          userId: user._id,
-          ...sell
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: user._id, ...sell }),
       });
 
       if (response.ok) {
         alert("Sell recorded");
         setSell({
-          itemName: "", itemCategory: "", quantity: "", quantityIn: "", date: ""
+          itemName: "",
+          itemCategory: "",
+          quantity: 1,
+          quantityIn: "",
+          date: ""
         });
       } else {
-        alert("Failed to record the sell.");
+        alert("Failed to record the sell");
       }
     } catch (error) {
       alert("Server Unreachable");
@@ -100,43 +97,44 @@ const Sell = () => {
   };
 
   return (
-    <section className='sell'>
-      <div>
-        <h1>Create Sell Record</h1>
-      </div>
+    <section className="min-h-screen bg-gray-100 py-10 px-4">
+      <h1 className="text-center text-3xl md:text-4xl font-bold text-gray-800 mb-10">
+        Sell Items
+      </h1>
 
-      <form onSubmit={onAddSell} className='register-form'>
-        {/* Dropdown for itemCategory */}
+      <form
+        onSubmit={onAddSell}
+        className="max-w-xl mx-auto bg-white p-6 md:p-8 rounded-xl shadow-md space-y-6"
+      >
+        {/* Category */}
         <div>
-          <label htmlFor="itemCategory">Item Category</label>
+          <label className="block font-semibold mb-1">Item Category</label>
           <select
             required
             name="itemCategory"
-            id='itemCategory'
             value={sell.itemCategory}
             onChange={(e) => handleCategorySelect(e.target.value)}
+            className="w-full border border-gray-300 rounded-md p-2 outline-none focus:ring focus:ring-blue-300"
           >
-            <option value="">Select a category</option>
-            {categories.map((category, index) => (
-              <option key={index} value={category}>
-                {category}
-              </option>
+            <option value="">Select Category</option>
+            {categories.map((c, i) => (
+              <option key={i} value={c}>{c}</option>
             ))}
           </select>
         </div>
 
-        {/* Dropdown for itemName, filtered by selected category */}
+        {/* Item Name */}
         <div>
-          <label htmlFor="itemName">Item Name</label>
+          <label className="block font-semibold mb-1">Item Name</label>
           <select
             required
             name="itemName"
-            id='itemName'
             value={sell.itemName}
             onChange={(e) => handleItemSelect(e.target.value)}
-            disabled={!sell.itemCategory} // Disable if category isn't selected
+            disabled={!sell.itemCategory}
+            className="w-full border border-gray-300 rounded-md p-2 outline-none disabled:bg-gray-200"
           >
-            <option value="">Select an item</option>
+            <option value="">Select Item</option>
             {filteredItems.map((item) => (
               <option key={item._id} value={item.itemName}>
                 {item.itemName}
@@ -145,52 +143,61 @@ const Sell = () => {
           </select>
         </div>
 
+        {/* Quantity */}
         <div>
-          <label htmlFor="quantity">Quantity</label>
+          <label className="block font-semibold mb-1">Quantity</label>
           <input
             type="number"
-            name='quantity'
-            id='quantity'
-            required
+            name="quantity"
             value={sell.quantity}
             onChange={handleInput}
-            placeholder='Enter quantity'
             min="1"
-            max={availableStock} // Ensure quantity doesn't exceed available stock
-            disabled={!sell.itemName} // Disable until item is selected
+            max={availableStock}
+            required
+            disabled={!sell.itemName}
+            className="w-full border border-gray-300 rounded-md p-2 outline-none disabled:bg-gray-200"
           />
+
           {!isQuantityValid && (
-            <p style={{ color: 'red' }}>Quantity exceeds available stock of {availableStock}</p>
+            <p className="text-red-500 text-sm mt-1">
+              Available Stock: {availableStock}
+            </p>
           )}
         </div>
 
+        {/* Quantity In */}
         <div>
-          <label htmlFor="quantityIn">Quantity In</label>
+          <label className="block font-semibold mb-1">Quantity In</label>
           <input
             type="text"
-            name='quantityIn'
-            id='quantityIn'
-            required
+            name="quantityIn"
             value={sell.quantityIn}
-            readOnly // Auto-selected, so make it read-only
+            readOnly
+            required
+            className="w-full border border-gray-300 rounded-md p-2 outline-none bg-gray-200"
           />
         </div>
 
+        {/* Date */}
         <div>
-          <label htmlFor="date">Date</label>
+          <label className="block font-semibold mb-1">Date</label>
           <input
             type="date"
-            name='date'
-            id='date'
-            required
+            name="date"
             value={sell.date}
             onChange={handleInput}
+            required
+            className="w-full border border-gray-300 rounded-md p-2 outline-none"
           />
         </div>
 
-        <div>
-          <button type="submit" className='register-btn'>Sell the Items</button>
-        </div>
+        {/* Submit */}
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 transition"
+        >
+          Sell the Item
+        </button>
       </form>
     </section>
   );
